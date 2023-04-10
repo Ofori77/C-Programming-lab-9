@@ -69,7 +69,7 @@ int main() {
     strcpy(item_2.price.currency, "USD");
     strcpy(item_2.price.amount, "45");
     item_2.sizetype = 0;
-    strcpy(item_2.size.word, "40");
+    item_2.size.digit = 40;
     //Item 3
     strcpy(item_3.name, "Hoodie");
     strcpy(item_3.code, "kt153");
@@ -96,7 +96,7 @@ int main() {
 
     int looping = 0;
     do {
-        printf("CLOTHING MALL\n1. Visit Shop\t2.Add Clothing\t3.Exit\n");
+        printf("\n\nCLOTHING MALL\n1. Visit Shop\t2.Add Clothing\t3.Exit\n");
         int option = 0;
         scanf(" %d", &option);
         switch (option) 
@@ -106,10 +106,13 @@ int main() {
             scanf(" %d", &option);
             showDetails(option - 1);
             showClothes(option - 1);
+            looping = 1;
             break;
 
         case 2:
-            addClothing();break;
+            addClothing();
+            looping = 1;
+            break;
 
         case 3: looping = 0; printf("Thanks for shopping ;)"); break;
         
@@ -131,7 +134,7 @@ void showShops() {
     {
         printf("%d\t%s\n", i+1, available_shops[i].name);
     }
-    printf("\nWhich one would you like to visit?\n\nOption: ");
+    printf("\n\nWhich one would you like to visit?\n\nOption: ");
 }
 
 //Show the details of a particular shop
@@ -142,7 +145,7 @@ void showDetails(int shop) {
 
 //Display the clothing available in a particular shop
 void showClothes(int shop) {
-    printf("\nAVAILABLE CLOTHING\n");
+    printf("\n\nAVAILABLE CLOTHING\n");
     printf("------------------------\n");
     fflush(stdin);
     for (int i = 0; i < clothesCount; i++)
@@ -206,10 +209,10 @@ void addClothing() {
         gets(amount);
         strcpy(available_clothing[i].price.amount, amount);
 
-        do {printf("\nSizing System:\n1. Digits\n2. Letters\n3. Words\n\nEnter option: ");
+        do {printf("\nSizing System:\n1. Digits\n2. Letter\n3. Word\n\nEnter option: ");
             fflush(stdin);
             scanf(" %d", &sizetype);
-            available_clothing[i].sizetype = sizetype;
+            available_clothing[i].sizetype = sizetype - 1;
             switch (sizetype)
             {
             case 1:
@@ -257,5 +260,6 @@ void addClothing() {
         while (option > shopCount && option < 0);
         printf("\nItem successfully added");
     }
+    clothesCount += num;
     printf("\nClothing Items successfully added");
 }
