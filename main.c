@@ -187,6 +187,7 @@ void addClothing() {
     for (int i = clothesCount; i < clothesCount + num; i++)
     {
         printf("\nItem Name: ");
+        fflush(stdin);
         gets(name);
         strcpy(available_clothing[i].name, name);
         fflush(stdin);
